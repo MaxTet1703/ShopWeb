@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container d-flex flex-column justify-content-center align-items-center login-wrapper">
+    <h3>Вход в систему</h3>
+    <h6 class="error-message d-none"></h6>
+    <div class="login-form d-flex flex-column justify-content-center align-items-center">
+        <form class="d-flex flex-column justify-content-center align-items-center" id="login" method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            {% for f in form %}
+                {{f}}
+            {%endfor%}
+            <button type="submit" class="reg-button">Войти</button>
+        </form>
+        <p>У вас нет аккаунта? <a href="{% url 'register' %}">Регистрация</a></p>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script src="{% static 'js/login.js' %}"></script>
+{% endblock %}

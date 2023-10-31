@@ -1,0 +1,37 @@
+{% load static %}
+
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/dist/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'font-awesome/css/font-awesome.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css'%}">
+    <script src="{% static 'jquery/dist/jquery.min.js'%}"></script>
+    {% block jsframework %}
+    {% endblock %}
+</head>
+<body>
+<div class="container-fluid" style="padding: 0;">
+    <header class="row g-0">
+        <div class="col-3 d-flex flex-column justify-content-center align-items-center" href="{% url 'user' %}">
+             <p class="logo">Старый Рим</p>
+             <p class="tagline">Почуствуй вкус былых времён</p>
+        </div>
+        {% if user.is_authenticated %}
+            <div class="Col-9 d-flex justify-content-end align-items-center">
+                <a href="{% url 'basket' %}"><i class="fa fa-shopping-basket basket" aria-hidden="true"></i></a>
+                <p class="name-user">{{user.name}}</p>
+                <a class="logout" href="{% url 'logout' %}">Выйти</a>
+            </div>
+        {% endif %}
+    </header>
+    {% block content %}
+    {% endblock %}
+</div>
+
+
+{% block js%}
+{% endblock %}
+</body>
+</html>

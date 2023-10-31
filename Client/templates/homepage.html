@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block jsframework %}
+<script src="{% static 'jarallax/dist/jarallax.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css'%}">
+{% endblock %}
+
+{% block content %}
+<div class="wrapper-head d-flex justify-content-center align-items-center" style="background-image: url('{% static 'images/head.jpg' %}');">
+    <h1 class="menu-title">Меню</h1>
+</div>
+<nav class="d-flex align-items-center justify-content-center menu-bar">
+    {% for m in menu %}
+    <span class="menu">{{m}}</span>
+    {% endfor %}
+</nav>
+ <div class="container-fluid">
+        {% for m in menu %}
+            <div class="row g-0 chapter d-flex justify-content-center d-none">
+                {% for food in m.get_menu.all %}
+                    <div class="col-4 d-flex flex-column justify-content-center align-items-center food">
+                        <img class="food-image" src="{{food.image.url}}">
+                        <p class="name">{{food.name}}<p>
+                        <p class="price">{{food.price}} р.</p>
+                        <span class="modal-open">Подробнее</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+</div>
+{% csrf_token %}
+{% for m in menu%}
+    {% for food in m.get_menu.all %}
+        <div class="modal-container d-flex justify-content-center align-items-center d-none">
+            <div class="modal-window d-flex">
+               <div class="modal-content d-flex flex-row">
+                   <div class="container-photo d-flex justify-content-center">
+                       <img class="image-modal" src="{{food.image.url}}">
+                   </div>
+                   <div class="text-modal d-flex flex-column">
+                       <p class="name-food-modal">{{food.name}}</p>
+                       <p class="name-food-description">{{food.description}}</p>
+                       <div class="counter d-flex">
+                           <button class="counter-button" data-direction="minus">-</button>
+                           <input type="text" value="1" disabled class="counter-value">
+                           <button class="counter-button" data-direction="plus">+</button>
+                           <button class="submit-add">В корзину</button>
+                       </div>
+                   </div>
+                   <span class="modal-close">&times;</span>
+               </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endfor %}
+{% endblock %}
+
+
+{% block js %}
+<script src="{% static 'js/homepage.js' %}"></script>
+{% endblock %}

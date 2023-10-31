@@ -1,0 +1,59 @@
+/*Корзина*/
+div.basket-wrapper{
+    position: relative;
+    margin:20px auto;
+    height: 700px;
+    width: 850px;
+    border-radius: 15px;
+    padding:40px;
+    box-shadow: 0px 0px 10px black;
+    box-sizing: border-box;
+    background: white;
+}
+div.basket-wrapper h2.name-page{
+    padding: 10px;
+    margin: 10px;
+    border-bottom: 2px solid rgb(220, 20, 60);
+    position: relative;
+}
+div.basket-wrapper div.item{
+}
+div.basket-wrapper div.item p{
+    flex: 2;
+}
+div.basket-wrapper div.item input.select-item{
+    flex: 1;
+    margin-bottom: 10px;
+    margin-right: 30px;
+
+}
+div.basket-wrapper div.item p.trash{
+    flex: 1;
+
+
+}
+div.basket-wrapper div.item p.item-image img{
+    width: 95px;
+    height: 65px;
+
+
+}
+div.basket-wrapper div.item i.trash-icon{
+    flex: 1;
+    font-size: 25px;
+    color: rgb(220, 20, 60);
+    display: inline;
+    margin: 10px;
+
+}
+div.basket-wrapper div.item i.trash-icon:hover{
+    color: blue;
+}
+
+h2.name-page span{
+    position: absolute;
+    right: 3px;
+    bottom: 10px;
+    font-size: 20px;
+    text-align: right;
+}

@@ -1,0 +1,163 @@
+/*Шапка меню*/
+div.wrapper-head{
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+div.wrapper-head h1.menu-title{
+    color: white;
+    font-family: Caveat;
+    font-size: 70px;
+}
+/*Навбар меню*/
+nav.menu-bar{
+    padding: 20px;
+    margin: 20px;
+}
+nav span.menu{
+    margin: 20px;
+    padding: 15px;
+    font-size: 20px;
+    background: rgb(220, 20, 60);
+    color: white;
+    border-radius: 25px;
+    border: 2px solid transparent;
+    transition: all .4s
+}
+nav span.menu:hover,  nav span.menu.pointer{
+    border-color: rgb(220, 20, 60);
+    background: white;
+    color: rgb(220, 20, 60);
+    cursor: default;
+}
+nav span.menu.pointer{
+    transition: all 0s;
+}
+/*Меню*/
+div.chapter{
+    padding: 20px;
+}
+div.chapter div.food{
+    padding: 25px;
+}
+img.food-image{
+    width: 450px;
+    height: 350px;
+}
+div.food p.name{
+    font-weight: bold:
+    padding: 7px;
+    margin: 0;
+    font-size: 30px;
+}
+div.food p.price{
+    font-size: 20px;
+}
+div.food span.modal-open{
+    margin: 5px;
+    padding: 7px 10px;
+    font-size: 20px;
+    background: rgb(220, 20, 60);
+    color: white;
+    border-radius: 15px;
+    border: 2px solid transparent;
+    transition: all .4s;
+}
+div.food span.modal-open:hover, div.food span.modal-open.opened{
+    color: rgb(220, 20, 60);
+    border-color: rgb(220, 20, 60);
+    background: white;
+    cursor: default;
+}
+/*Модальное окно*/
+div.modal-container{
+    width: 100%;
+    height: calc(100%);
+    position: fixed;
+    background: rgba(0, 0, 0, 0.6);
+    top: 0;
+    left: 0;
+    z-index: 10;
+    overflow: hidden;
+}
+div.modal-window{
+    position: absolute:
+    padding: 20px;
+    top: 50%;
+    left: 50%;
+    transition: translate(-50%, -50%);
+    z-index: 11;
+}
+div.modal-content{
+    background: white;
+    height: 400px;
+    width: 900px;
+}
+span.modal-close{
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: rgba(0, 0, 0, 0.6);
+    padding: 0 10px;
+    font-size: 30px;
+}
+span.modal-close:hover{
+    color: rgb(0, 0, 0);
+    cursor: default;
+}
+div.modal-content div.container-photo, div.modal-content div.text-modal{
+    padding: 20px;
+}
+div.modal-content div.container-photo img{
+    width: 350px;
+    height: 250px;
+}
+div.modal-content div.text-modal p.name-food-modal{
+    padding-bottom: 5px;
+    border-bottom: 3px solid rgb(220, 20, 60);
+    font-weight: 900;
+    font-size:25px;
+}
+div.modal-content div.text-modal p.name-food-description{
+    font-size: 20px;
+}
+div.modal-content div.counter{
+    margin: 10px 0;
+}
+div.modal-content div.text-modal input{
+    background: none;
+    border: none;
+    font-size: 20px;
+    width: 30px;
+    margin: 0 20px;
+    text-align: center;
+}
+div.modal-content button.counter-button{
+    background: none;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+}
+div.modal-content button.counter-button:hover{
+    border-color: black;
+}
+div.modal-content button.submit-add{
+    font-size: 20px;
+    padding: 7px 15px;
+    border-radius: 15px;
+    background: rgb(220, 20, 60);
+    color: white;
+    border: 1px solid transparent;
+    margin: 0 auto;
+    transition: all .4s;
+
+}
+div.modal-content button.submit-add:hover{
+    border-color: rgb(220, 20, 60);
+    color: rgb(220, 20, 60);
+    background: white;
+}

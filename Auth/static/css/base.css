@@ -1,0 +1,127 @@
+@font-face{
+    font-family: Caveat;
+    src: url(fonts/Caveat/Caveat.ttf);
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+/*Шапка сайта*/
+p.logo, p.tagline{
+    font-family: Caveat
+}
+p.logo{
+  font-size: 40px;
+  color: white;
+  padding: 10px 10px 0px 10p
+  margin: 0;
+  margin-bottom: 0px;
+}
+p.tagline{
+    color: white;
+    font-size: 20px;
+    padding: 0px 10px 1px 10px;
+    margin: 0;
+}
+p.note{
+    font-size: 10px;
+    color: red;
+    margin-left: 10px
+}
+header{
+    background: rgb(220, 20, 60);
+}
+p.name-user{
+    color: white;
+    padding:20px;
+    font-size: 20px;
+    margin: 0;
+}
+a.logout{
+ font-size: 20px;
+ padding: 30px;
+ color: white;
+ text-decoration: none;
+}
+a.logout:hover{
+    text-decoration: underline;
+}
+i.basket{
+    padding:15px;
+    margin: 15px;
+    font-size: 20px;
+    color: white;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    transition: all .4s;
+
+}
+i.basket:hover, i.basket.link{
+    border-color: rgb(220, 20, 60);
+    color: rgb(220, 20, 60);
+    background: white;
+
+}
+/*Форма регистрации*/
+form#registration input.red{
+    border-color: rgb(255 0 0)
+}
+div.register-wrapper{
+    padding-top: 200px;
+}
+h6.error-message{
+    width: 300px;
+    padding: 15px;
+    font-size: 15px;
+    text-align: center;
+    color: rgb(255, 0, 0);
+    background: rgba(255, 0, 0, 0.4);
+}
+form#registration{
+    padding: 10px;
+}
+input.passw-reg, input.user-reg, input.email-reg{
+    margin: 3px;
+    width: 350px;
+    border-radius: 15px;
+    padding: 10px;
+    outline: none;
+    border: 1px solid rgba(0,0,0, 0.6);
+    background: white;
+}
+button.reg-button{
+    width: 150px;
+    margin: 8px;
+    color: white;
+    background: rgb(220, 20, 60);
+    padding: 10px;
+    border-radius: 15px;
+    border: 0px solid transparent;
+    decoration: none;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+}
+button.reg-button:before{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0px;
+    height: 0px;
+    content: "";
+    background: rgba(255 255 255 0.6);
+}
+
+/*Форма входа*/
+div.login-wrapper{
+    padding-top: 200px;
+}
+form#login input{
+    margin: 3px;
+    width: 350px;
+    border-radius: 15px;
+    padding: 10px;
+    outline: none;
+    border: 1px solid rgba(0,0,0, 0.6);
+    background: white;
+}
