@@ -18,7 +18,7 @@ $(function($){
                 success: function(response){
                     console.log("Все прошло успешно");
                     $(trash).parent().parent().remove();
-                    $("h2.name-page span.total-price").text("к оплате: " + response.summ);
+                    $("h2.name-page span.total-price").html("к оплате: " + response.summ + "&#8381;");
                 },
                 error: function(){
                     console.log("Вышла ошибочка");
@@ -26,17 +26,19 @@ $(function($){
             });
         });
     });
-   const checkbox = $("div.basket-wrapper div.item input.select-item");
-   Array.from(checkbox).forEach(checkbox => {
+   const checkboxes = $("div.basket-wrapper div.item input.select-item");
+   Array.from(checkboxes).forEach(checkbox => {
         console.log($(checkbox).attr("checked"));
        $(checkbox).click(function(event){
             let request;
-            event.preventDefault();
-            if ($(checkbox).attr("checked") == "checked"){
-                request = "False";
+            console.log(Boolean($(checkbox).attr("checked")));
+            console.log("Изначально у нас было " + $(checkbox).attr("checked"));
+            if (Boolean($(checkbox).attr("checked"))){
+                request = false;
             } else{
-                request = "True";
+                request = true;
             }
+            console.log("На что надо изменить " + request);
              $.ajax({
                 type: "POST",
                 url: $(location).attr("href"),
@@ -44,26 +46,19 @@ $(function($){
                 data: {
                     message: "change",
                     pk: $(checkbox).attr("name"),
-                    req: request,
+                    request: request,
                     csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
                 },
                 success: function(response){
-                    $("h2.name-page span.total-price").text("к оплате: " + response.summ);
-                    if (request == "True"){
-                        $(checkbox).prop("checked", true);
-                    } else {
-                        $(checkbox).prop("checked", false) ;
-                    }
-
+                    $("h2.name-page span.total-price").html("к оплате: " + response.summ + "&#8381;");
+                    console.log("Устанавливаем " +  response.value);
+                    $(checkbox).attr("checked", request);
+                    console.log("Установили " + $(checkbox).attr("checked"));
                 },
                 error: function(){
                     console.log("Вышла ошибочка");
                 }
-            });
-
-
-
+        });
        });
-
    });
 });

@@ -17,11 +17,11 @@
             <p class="item-name">{{item.item.name}}</p>
             <p class="total-price">{{item.count}}*{{item.item.price}} = {{item.total}}</p>
             {% if item.is_selected %}
-            <input class="select-item" type="checkbox" name="{{item.pk}}" checked>
+            <input class="select-item" type="checkbox" name="{{item.pk}}" checked="checked">
             {% else %}
-            <input class="select-item" type="checkbox" name="{{item.pk}}" >
+            <input class="select-item" type="checkbox" name="{{item.pk}}">
             {%endif%}
-            <p class="trash d-flex justify-content-center align-items-center"><i name="{{item.pk}}" class="fa fa-trash trash-icon" aria-hidden="true" style="width: 30xp;"></i></p>
+            <p class="trash d-flex justify-content-center align-items-center"><i name="{{item.pk}}" class="fa fa-trash trash-icon" ></i></p>
         </div>
         {%endfor%}
     </div>

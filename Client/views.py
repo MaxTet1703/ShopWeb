@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import F, Sum
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
@@ -28,7 +30,7 @@ class HomePage(LoginRequiredMixin, View):
         OrdersItem.objects.create(user_id=self.request.user,
                                   item=item_of_menu,
                                   count=count,
-                                  is_selected=False)
+                                  is_selected=True)
         return JsonResponse({
             'status': 200,
             'message': "Всё прошло успешно"
@@ -69,27 +71,17 @@ class Basket(LoginRequiredMixin, View):
 
     def change_checkbox(self, request):
         pk = self.request.POST.get("pk")
-        boolean = self.request.POST.get("req")
-        if boolean == "True":
-            response = True
-            value = 1
-        else:
-            response = False
-            value = 0
-
+        boolean = json.loads(self.request.POST.get("request"))
         item = OrdersItem.objects.get(pk=pk)
-        print(item.is_selected)
-        item.is_selected = response
+        item.is_selected = boolean
         item.save()
-        print(item.is_selected)
         summ = OrdersItem.objects.filter(user_id=self.request.user, is_selected = True).aggregate(
             summ=Sum(F("count") * F("item__price")))['summ']
         if summ is None:
             summ = 0
-
         return JsonResponse({
             'status': 200,
-            "value": value,
+            "value": json.dumps(boolean),
             "summ": summ
         }, status=200)
 
