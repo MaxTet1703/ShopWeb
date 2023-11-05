@@ -57,6 +57,8 @@ class UserLogin(View):
     template_name = 'login.html'
 
     def get(self, request):
+        if self.request.user.is_authenticated:
+            return redirect("user")
         context = {
             'form': LoginForm(),
             'title': 'Регистрация'
