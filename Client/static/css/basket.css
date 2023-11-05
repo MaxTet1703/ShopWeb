@@ -59,3 +59,40 @@ h2.name-page span{
     font-size: 20px;
     text-align: right;
 }
+/*Кнопка оформления заказа*/
+#buying{
+    position: absolute;
+    bottom: 20px;
+    left: 40%;
+    width: 150px;
+    outline: none;
+    padding: 15px;
+    color: white;
+    background: rgb(220, 20, 60);
+    border: 1px solid transparent;
+    border-radius: 15px;
+    transition: all .4s;
+}
+#buying:hover{
+    color: rgb(220, 20, 60);
+    border-color: rgb(220, 20, 60);
+    background: none;
+}
+/*Сообщение о успехе оформления заказа*/
+div.success-wrapper{
+    padding: 15px;
+}
+p#success-order{
+    margin: 20px, auto;
+    display: inline-block;
+    padding: 20px;
+    background: rgb(189,236,182);
+    position: relative;
+
+}
+span.close{
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    cursor: default;
+}

@@ -4,6 +4,9 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/basket.css'%}">
 {% endblock %}
 {% block content %}
+    <div class="success-wrapper d-flex justify-content-center">
+        <p id="success-order" class="d-none">Заказ успешно оформлен <span class="close">&times;</span></p>
+    </div>
     <div class="container basket-wrapper">
         {% if items|length > 0%}
         <h2 class="name-page">Корзина <span class="total-price">к оплате: {{summ}}&#8381;</span></h2>
@@ -24,6 +27,7 @@
             <p class="trash d-flex justify-content-center align-items-center"><i name="{{item.pk}}" class="fa fa-trash trash-icon" ></i></p>
         </div>
         {%endfor%}
+        <button id="buying">Оформить</button>
     </div>
 {% endblock %}
 {% block js %}

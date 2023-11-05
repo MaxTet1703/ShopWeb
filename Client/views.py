@@ -85,9 +85,14 @@ class Basket(LoginRequiredMixin, View):
             "summ": summ
         }, status=200)
 
+    def create_order(self, request):
+        OrdersItem.objects.filter(user_id=self.request.user, is_selected=True).delete()
+        return  JsonResponse(data = {}, status=200)
+
     choose_post = {
         "delete": delete_item,
-        "change": change_checkbox
+        "change": change_checkbox,
+        "order": create_order
     }
 
     def post(self, request):

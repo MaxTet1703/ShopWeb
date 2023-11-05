@@ -1,6 +1,6 @@
 $(function($){
     $("i.basket").addClass("link");
-
+    // Удаление блюда из корзины
     let trashes = $("div.basket-wrapper div.item p.trash i.trash-icon");
     Array.from(trashes).forEach(trash => {
         $(trash).click(function(event){
@@ -26,6 +26,7 @@ $(function($){
             });
         });
     });
+    /*Управление чекбоксами для выбора блюд в корзине*/
    const checkboxes = $("div.basket-wrapper div.item input.select-item");
    Array.from(checkboxes).forEach(checkbox => {
         console.log($(checkbox).attr("checked"));
@@ -61,4 +62,25 @@ $(function($){
         });
        });
    });
+   $("#buying").click(function(e){
+       $.ajax({
+            type: "POST",
+            url: $(location).attr("href"),
+            dataType: 'json',
+            data: {
+                message: "order",
+                 csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
+            },
+            success: function(){
+                $('input.select-item[checked="checked"]').parent().remove();
+                $("p#success-order").removeClass("d-none");
+            },
+            error: function(){
+                console.log("Ошибка");
+            }
+       });
+   });
+   $("p#success-order").click(function(){
+        $("p#success-order").addClass("d-none");
+   })
 });
