@@ -1,4 +1,6 @@
-$(function(){
+$(function($){
+    $('.passw-reg').after('<p class="note d-none">Для создания пароля используйте латиницу и цифры</p>');
+
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
@@ -14,31 +16,30 @@ $(function(){
         }
         return cookieValue;
     }
-    const csrftoken = getCookie('csrftoken');
-    $('#login').submit(function(event){
+
+    $('#create').submit(function(event){
         event.preventDefault();
-        console.log($('input[type="password"]').val());
-        console.log($(this).serialize());
         $.ajax({
             type: this.method,
             url: this.action,
-            data: {
-                email: $('input[type="email"]').val(),
-                password: $('input[type="password"]').val(),
-                csrfmiddlewaretoken:  csrftoken
-            }
+            data: $(this).serialize(),
             dataType: 'json',
             success: function(response){
                 if (response.status == 400){
-                    $('h6.error-message').text(response.error).removeClass('d-none');
-                }
-                else{
-                     alert("Вы успешно вошли в систему");
+                    console.log( $("h4.error span.close").before())
+                    $("h4.error span.close").before("");
+                    $("h4.error span.close").before(response.error);
+                    $("h4.error").removeClass("d-none");
+                } else{
+                    alert(response.success);
                 }
             },
             error: function(response){
-                console.log(response)
+
             }
         });
     });
-});
+    $("h4.error span.close").click(function(e){
+        $("h4.error").addClass("d-none");
+    });
+})

@@ -87,7 +87,11 @@ class Basket(LoginRequiredMixin, View):
 
     def create_order(self, request):
         OrdersItem.objects.filter(user_id=self.request.user, is_selected=True).delete()
-        return  JsonResponse(data = {}, status=200)
+        summ = OrdersItem.objects.filter(user_id=self.request.user, is_selected=True).aggregate(
+            summ=Sum(F("count") * F("item__price")))['summ']
+        if summ is None:
+            summ = 0
+        return  JsonResponse(data = {"summ": summ}, status=200)
 
     choose_post = {
         "delete": delete_item,

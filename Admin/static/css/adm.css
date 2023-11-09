@@ -1,0 +1,29 @@
+/*Подпись к форме*/
+h1.name-form, h1.name-list{
+    font-size: 25px;
+    margin: 20px 0;
+}
+div.list{
+    padding: 0, 40px;
+}
+h4.error{
+    position: relative;
+    margin: 10px;
+    font-size: 15px;
+    height: 60px;
+    width: 300px;
+    padding: 20px;
+    background: rgba(255, 0, 0, 0.4);
+    color: red;
+    text-align: center;
+}
+h4.error span.close{
+    position: fixed:
+    top: 0;
+    right: 0;
+    color: gray;
+    cursor: pointer;
+}
+h4.error span.close:hover{
+    color: black;
+}

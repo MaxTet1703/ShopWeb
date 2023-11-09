@@ -1,13 +1,11 @@
 from django.contrib.auth import authenticate, login, logout
-
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, CreateView, FormView
 
 from .forms import *
 from .models import *
+from .mixin import *
 
 
 # Create your views here.
@@ -16,6 +14,8 @@ class UserRegister(View):
     template_name = "register.html"
 
     def get(self, request):
+        if self.request.user.is_authenticated:
+            return redirect(self.get_redirect_url())
         context = {
             'form': RegisterForm(),
             'title': 'Регистрация'
@@ -46,19 +46,19 @@ class UserRegister(View):
                 'status': 400,
                 'error': "Введите данные правильно",
             }, status=200)
-        MyUser(email=email, name=name, password=password)
+        MyUser.objects.create(email=email, name=name, password=password, is_cook=False)
         return JsonResponse(data={
             'status': 200,
             'success': 'Вы успешно зарегистрировались',
         }, status=200)
 
 
-class UserLogin(View):
+class UserLogin(View, DataMixIn):
     template_name = 'login.html'
 
     def get(self, request):
         if self.request.user.is_authenticated:
-            return redirect("user")
+            return redirect(self.get_redirect_url())
         context = {
             'form': LoginForm(),
             'title': 'Регистрация'
@@ -74,14 +74,13 @@ class UserLogin(View):
             }, status=200)
         email = self.request.POST.get('email')
         password = self.request.POST.get("password")
+        print(email)
+        print(password)
         if email and password:
             user = authenticate(email=email, password=password)
             if user:
                 login(request, user)
-                return JsonResponse(data={
-                    'status': 200,
-                    'success': "Вход был успешно выполнен!",
-                }, status=200)
+                return redirect(self.get_redirect_url())
         return JsonResponse(data={
             'status': 400,
             'error': "Неверная почта или пароль",

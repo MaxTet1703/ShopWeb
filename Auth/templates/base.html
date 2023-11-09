@@ -12,15 +12,17 @@
     {% endblock %}
 </head>
 <body>
-<div class="container-fluid" style="padding: 0;">
+<div class="container-fluid" style="padding: 0; height: 100%;">
     <header class="row g-0">
         <div class="col-3 d-flex flex-column justify-content-center align-items-center" href="{% url 'user' %}">
              <p class="logo">Старый Рим</p>
              <p class="tagline">Почуствуй вкус былых времён</p>
         </div>
         {% if user.is_authenticated %}
-            <div class="Col-9 d-flex justify-content-end align-items-center">
+            <div class="col-9 d-flex justify-content-end align-items-center">
+                 {% if not user.is_superuser and not user.is_cook %}
                 <a href="{% url 'basket' %}"><i class="fa fa-shopping-basket basket" aria-hidden="true"></i></a>
+                 {% endif %}
                 <p class="name-user">{{user.name}}</p>
                 <a class="logout" href="{% url 'logout' %}">Выйти</a>
             </div>

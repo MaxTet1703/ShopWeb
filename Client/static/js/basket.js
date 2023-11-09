@@ -71,9 +71,10 @@ $(function($){
                 message: "order",
                  csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
             },
-            success: function(){
+            success: function(response){
                 $('input.select-item[checked="checked"]').parent().remove();
                 $("p#success-order").removeClass("d-none");
+                  $("h2.name-page span.total-price").html("к оплате: " + response.summ + "&#8381;");
             },
             error: function(){
                 console.log("Ошибка");

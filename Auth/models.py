@@ -13,6 +13,7 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(auto_now_add=True, verbose_name="Дата регистрации")
     is_active = models.BooleanField( default=True)
     is_staff = models.BooleanField(default=True)
+    is_cook = models.BooleanField(default=False)
 
     objects = MyUserManager()
 
