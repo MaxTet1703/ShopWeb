@@ -53,4 +53,7 @@ class CreateEmploy(View):
         return JsonResponse(data={
             'status': 200,
             'success': 'Работник успешно добавлен',
+            "name": name,
+            "email": email,
+
         }, status=200)

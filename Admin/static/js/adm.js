@@ -31,6 +31,15 @@ $(function($){
                     $("h4.error span.close").before(response.error);
                     $("h4.error").removeClass("d-none");
                 } else{
+                    $("div.list").append(
+                        `
+                            <div class="person d-flex">
+                            <p class="name">${response.name}</p>
+                            <p class="email">{response.email}</p>
+                            <p class="d-flex align-items-center justify-content-center"><i name=${response.pk} class="fa fa-trash trash-icon"></i></p>
+                    </div>
+                        `
+                    );
                     alert(response.success);
                 }
             },

@@ -2,6 +2,8 @@
 h1.name-form, h1.name-list{
     font-size: 25px;
     margin: 20px 0;
+    flex: 1;
+    text-align: center;
 }
 div.list{
     padding: 0, 40px;
@@ -26,4 +28,36 @@ h4.error span.close{
 }
 h4.error span.close:hover{
     color: black;
+}
+/*Cписок сотруднико*/
+div.list-wrapper{
+    box-sizing: border-box;
+}
+div.list{
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 0;
+}
+div.list:first{
+    margin-top: 0;
+}
+div.list p:not(.d-flex){
+    flex: 2;
+    padding: 10px;
+}
+dib.list p.d-flex{
+    flex: 1;
+    padding: 5px
+}
+div.list i{
+    color: rgb(220, 20, 60);
+    transition: all .4s;
+    padding: 10px 12px;;
+    border-radius: 50%;
+    background: white;
+
+}
+div.list i:hover{
+    color: white;
+    background: rgb(220, 20, 60);
 }

@@ -4,10 +4,14 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/adm.css'%}">
 {% endblock %}
 {% block content %}
-<div class="container-fluid" style="padding: 0; height: 100%;">
-    <div class="row g-0" style="height: 70%;">
-        <div class="col-6 d-flex flex-column justify-content-center align-items-center">
+<div class="container-fluid d-flex align-items-center justify-content-center" style="padding: 0; height: 70%;">
+    <div class="row g-0" style="height: 40%;">
+        <div class="col-12 d-flex align-items-center justify-content-center">
             <h1 class="name-form">Зарегистрировать работника</h1>
+            <h1 class="name-list">Сотрудники</h1>
+        </div>
+        <div class="col-6 d-flex flex-column align-items-center">
+
             <h4 class="error d-none"><span class="close">&times;</span></h4>
             <form class="d-flex flex-column justify-content-center align-items-center" id="create" method="POST" action="{% url 'administrator' %}">
                 {% csrf_token %}
@@ -17,13 +21,13 @@
                 <button type="submit" class="reg-button">Добавить</button>
             </form>
         </div>
-        <div class="col-6 d-flex flex-column justify-content-center align-items-center">
-            <h1 class="name-list">Сотрудники</h1>
+        <div class="col-6 d-flex flex-column  align-items-center list-wrapper">
             <div class="list ">
                 {% for employee in employees %}
-                    <div class="person">
+                    <div class="person d-flex">
                         <p class="name">{{employee.name}}</p>
                         <p class="email">{{employee.email}}</p>
+                        <p class="d-flex align-items-center justify-content-center"><i name="{{employee.pk}}" class="fa fa-trash trash-icon"></i></p>
                     </div>
                 {% endfor %}
             </div>
