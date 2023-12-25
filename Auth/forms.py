@@ -1,5 +1,7 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
+
 
 from .models import *
 
@@ -26,7 +28,7 @@ class RegisterForm(UserCreationForm):
 
     class Meta:
         model = MyUser
-        fields = ['name', 'email']
+        fields = ('name', 'email')
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'user-reg',
@@ -38,3 +40,17 @@ class RegisterForm(UserCreationForm):
 
             })
         }
+
+    def clean_email(self):
+        email = self.cleaned_data["email"]
+        if MyUser.objects.filter(email=email).exists():
+            raise ValidationError("Аккаунт с такой почтой существует")
+        return email
+
+    def clean_password2(self):
+        password1 = self.cleaned_data["password1"]
+        password2 = self.cleaned_data["password2"]
+        if password1 != password2:
+            raise ValidationError("Пароли не совпадают")
+
+        return password2

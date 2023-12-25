@@ -22,11 +22,7 @@ $(function(){
         $.ajax({
             type: this.method,
             url: this.action,
-            data: {
-                email: $('input[type="email"]').val(),
-                password: $('input[type="password"]').val(),
-                csrfmiddlewaretoken:  csrftoken
-            }
+            data: $(this).serialize(),
             dataType: 'json',
             success: function(response){
                 if (response.status == 400){

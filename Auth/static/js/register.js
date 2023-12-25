@@ -26,6 +26,8 @@ $(function($){
             dataType: 'json',
             success: function(response){
                 if (response.status == 400){
+                    console.log(response.error)
+
                     $('h6.error-message').text(response.error).removeClass('d-none');
                     $('input').addClass('red');
                     $('.passw-reg').next().removeClass("d-none");

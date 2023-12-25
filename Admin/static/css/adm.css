@@ -8,25 +8,34 @@ h1.name-form, h1.name-list{
 div.list{
     padding: 0, 40px;
 }
-h4.error{
+.window-error{
     position: relative;
-    margin: 10px;
-    font-size: 15px;
-    height: 60px;
     width: 300px;
+    height: 60px;
+     background: rgba(255, 0, 0, 0.4);
     padding: 20px;
-    background: rgba(255, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0px;
+}
+h4.error{
+    font-size: 15px;
     color: red;
     text-align: center;
+    display: inline-block;
 }
-h4.error span.close{
-    position: fixed:
+span.close{
+    position: absolute;
     top: 0;
     right: 0;
+    width: 20px;
+    height: 20px;
+    text-align: center;
     color: gray;
     cursor: pointer;
 }
-h4.error span.close:hover{
+span.close:hover{
     color: black;
 }
 /*Cписок сотруднико*/
@@ -38,11 +47,15 @@ div.list{
     width: 100%;
     padding: 0;
 }
+.person{
+    padding: 10px;
+
+}
 div.list:first{
     margin-top: 0;
 }
 div.list p:not(.d-flex){
-    flex: 2;
+    flex: 3;
     padding: 10px;
 }
 dib.list p.d-flex{
@@ -60,4 +73,13 @@ div.list i{
 div.list i:hover{
     color: white;
     background: rgb(220, 20, 60);
+}
+.person{
+    width: 80%;
+}
+.name{
+    text-align:center;
+}
+#create{
+    margin: 15px 0px;
 }

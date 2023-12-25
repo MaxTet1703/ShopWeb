@@ -26,7 +26,7 @@ p.tagline{
 p.note{
     font-size: 10px;
     color: red;
-    margin-left: 10px
+    margin: 0;
 }
 header{
     background: rgb(220, 20, 60);

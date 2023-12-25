@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'ShopWeb.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'd.sqlite3',
     }
 }
 
@@ -128,6 +128,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# User model
+AUTH_USER_MODEL = 'Auth.MyUser'
 
-AUTH_USER_MODEL = "Auth.MyUser"

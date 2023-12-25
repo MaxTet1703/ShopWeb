@@ -26,29 +26,30 @@ $(function($){
             dataType: 'json',
             success: function(response){
                 if (response.status == 400){
-                    console.log( $("h4.error span.close").before())
-                    $("h4.error span.close").before("");
-                    $("h4.error span.close").before(response.error);
-                    $("h4.error").removeClass("d-none");
+                    $(".error").text(response.error);
+                    $(".window-error").removeClass("d-none");
+                    $('input').addClass('red');
+                    $('.passw-reg').next().removeClass("d-none");
                 } else{
                     $("div.list").append(
                         `
                             <div class="person d-flex">
                             <p class="name">${response.name}</p>
-                            <p class="email">{response.email}</p>
-                            <p class="d-flex align-items-center justify-content-center"><i name=${response.pk} class="fa fa-trash trash-icon"></i></p>
-                    </div>
+                            <p class="email">${response.email}</p>
+                            <p class="d-flex align-items-center justify-content-center"><i name="${response.pk}" class="fa fa-trash trash-icon"></i></p>
+                            </div>
                         `
                     );
                     alert(response.success);
                 }
             },
-            error: function(response){
-
+            error: function(err){
+                console.log(err);
             }
         });
     });
-    $("h4.error span.close").click(function(e){
-        $("h4.error").addClass("d-none");
+    $(".close").click(function(e){
+        $(".window-error").addClass("d-none");
+        $(".passw-reg").next().addClass("d-none");
     });
 })

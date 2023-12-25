@@ -5,14 +5,16 @@
 {% endblock %}
 {% block content %}
 <div class="container-fluid d-flex align-items-center justify-content-center" style="padding: 0; height: 70%;">
-    <div class="row g-0" style="height: 40%;">
+    <div class="row g-0" style="height: 50%; width: 70vw;">
         <div class="col-12 d-flex align-items-center justify-content-center">
             <h1 class="name-form">Зарегистрировать работника</h1>
             <h1 class="name-list">Сотрудники</h1>
         </div>
         <div class="col-6 d-flex flex-column align-items-center">
-
-            <h4 class="error d-none"><span class="close">&times;</span></h4>
+            <div class="window-error d-none">
+                 <h4 class="error"></h4>
+                <span class="close">&times;</span>
+            </div>
             <form class="d-flex flex-column justify-content-center align-items-center" id="create" method="POST" action="{% url 'administrator' %}">
                 {% csrf_token %}
                 {% for f in form %}
@@ -22,7 +24,7 @@
             </form>
         </div>
         <div class="col-6 d-flex flex-column  align-items-center list-wrapper">
-            <div class="list ">
+            <div class="list d-flex flex-column align-items-center">
                 {% for employee in employees %}
                     <div class="person d-flex">
                         <p class="name">{{employee.name}}</p>

@@ -26,7 +26,7 @@ class HomePage(LoginRequiredMixin, View):
     def post(self, request):
         count = self.request.POST.get("count")
         name = self.request.POST.get("name")
-        item_of_menu = Menu.objects.get(name=name)
+        item_of_menu = Menu.objects.get()
         OrdersItem.objects.create(user_id=self.request.user,
                                   item=item_of_menu,
                                   count=count,
@@ -59,7 +59,7 @@ class Basket(LoginRequiredMixin, View):
 
     def delete_item(self, request):
         pk = self.request.POST.get('pk')
-        OrdersItem.objects.get(pk=pk).delete()
+        OrdersItem.objects.get().delete()
         summ = OrdersItem.objects.filter(user_id=self.request.user, is_selected = True).aggregate(
             summ=Sum(F("count") * F("item__price")))['summ']
         if summ is None:
@@ -72,7 +72,7 @@ class Basket(LoginRequiredMixin, View):
     def change_checkbox(self, request):
         pk = self.request.POST.get("pk")
         boolean = json.loads(self.request.POST.get("request"))
-        item = OrdersItem.objects.get(pk=pk)
+        item = OrdersItem.objects.get()
         item.is_selected = boolean
         item.save()
         summ = OrdersItem.objects.filter(user_id=self.request.user, is_selected = True).aggregate(
