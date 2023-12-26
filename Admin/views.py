@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import View
+from django.views.generic import CreateView
 
 from Auth.forms import RegisterForm
 from Auth.models import *
@@ -9,56 +10,46 @@ from Auth.models import *
 # Create your views here.
 
 
-class CreateEmploy(View):
+class CreateEmploy(CreateView):
     template_name = 'administrator.html'
+    form_class =  RegisterForm
 
     @property
-    def get_context_data(self):
+    def get_context_data(self, **kwargs):
         return {
             'title': "Регистрация работников",
             "form": RegisterForm(),
-            'employees': MyUser.objects.filter(is_cook=True)
+            'employees': MyUser.objects.filter(is_cooker=True)
         }
 
     def get(self, request):
         return render(request, self.template_name, context=self.get_context_data)
 
-    def post(self, request):
-        form = RegisterForm(request.POST)
+    def post(self, request, *args, **kwargs):
+        if self.request.POST.get('pk') is None:
+            return super().post(request, *args, **kwargs)
+        user = MyUser.objects.get(pk=self.request.POST.get('pk'))
+        user.delete()
+        return JsonResponse(data={'status': 200}, status=200)
 
-        if form.is_valid():
-            form.save()
 
-            email = form.cleaned_data['email']
-            name = form.cleaned_data['name']
-            password1 = form.cleaned_data['password1']
+    def form_valid(self, form):
+        email = form.cleaned_data['email']
+        name = form.cleaned_data["name"]
+        password = form.cleaned_data["password1"]
+        user = MyUser(email=email, name=name,
+                                   is_cooker=True, username=email, password=password)
+        user.save()
+        return JsonResponse(data={
+            'status': 200,
+            'success': 'Работник успешно добавлен',
+            "name": name,
+            "email": email,
+            'pk': user.pk
+        }, status=200)
 
-            new_user = MyUser(email=email, name=name, password=password1, is_cook=True)
-            new_user.save()
-
-            return JsonResponse(data={
-                'status': 200,
-                'success': 'Работник успешно добавлен',
-                "name": new_user.name,
-                "email": new_user.email,
-                'pk': new_user.pk
-            }, status=200)
-
-        else:
-            email = self.request.POST("email")
-            name = self.request.POST("name")
-            password1 = self.request.POST("password1")
-            password2 = self.request.POST("password2")
-            error: str
-            if MyUser.objects.filter(email=email):
-                error = "Пользователь с такой почтой уже существует"
-            elif password1 != password2:
-                error = "Пароли не совпадают"
-            elif not name:
-                error = "Введите имя сотрудника"
-            else:
-                error = "Введите данные корректно"
-            return JsonResponse(data={
-                'status': 400,
-                'error': error,
-            }, status=200)
+    def form_invalid(self, form):
+        data = dict()
+        data["error"] = list(form.errors.as_data().values())[0][0].message
+        data["status"] = 400
+        return JsonResponse(data=data, status=200)
