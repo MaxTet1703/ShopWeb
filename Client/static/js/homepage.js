@@ -72,7 +72,7 @@ $(function($){
                 data: {
                     name: name,
                     count: count,
-                    csrfmiddlewaretoken: csrfToken
+                    csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
                 },
                 dataType: 'json',
                 success: function(response){

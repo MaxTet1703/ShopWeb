@@ -32,6 +32,7 @@ class Chapter(models.Model):
 
 class Order(models.Model):
     is_done = models.BooleanField(verbose_name="Готово/Не готово", default=False)
+    cooker = models.ForeignKey(MyUser, on_delete=models.DO_NOTHING, related_name="cooker", null=True)
 
 
 class OrdersItem(models.Model):
@@ -47,4 +48,4 @@ class OrdersItem(models.Model):
     count = models.IntegerField(verbose_name="Количество блюд")
     is_selected = models.BooleanField(verbose_name="Выбор для покупки", default=False)
     is_ordered = models.BooleanField(verbose_name="Заказано/не заказано", default=False)
-    order_id = models.ForeignKey("Order", on_delete=models.DO_NOTHING, verbose_name="Номер заказа", related_name="order_id", null=True)
+    order_id = models.ForeignKey(Order, on_delete=models.DO_NOTHING, verbose_name="Номер заказа", related_name="order_id", null=True)

@@ -74,7 +74,7 @@ $(function($){
             success: function(response){
                 $('input.select-item[checked="checked"]').parent().remove();
                 $("p#success-order").removeClass("close");
-                  $("h2.name-page span.total-price").html("к оплате: " + response.summ + "&#8381;");
+                $("h2.name-page span.total-price").html("к оплате: " + response.summ + "&#8381;");
             },
             error: function(){
                 console.log("Ошибка");

@@ -6,9 +6,11 @@ div.basket-wrapper{
     width: 850px;
     border-radius: 15px;
     padding:40px;
+    padding-bottom: 70px;
     box-shadow: 0px 0px 10px black;
     box-sizing: border-box;
     background: white;
+
 }
 div.basket-wrapper h2.name-page{
     padding: 10px;
@@ -17,6 +19,7 @@ div.basket-wrapper h2.name-page{
     position: relative;
 }
 div.basket-wrapper div.item{
+    margin: 20px 0px;
 }
 div.basket-wrapper div.item p{
     flex: 3;
@@ -48,7 +51,6 @@ div.basket-wrapper div.item i.trash-icon{
 
 }
 div.basket-wrapper div.item i.trash-icon:hover{
-
     color: blue;
 }
 
@@ -59,10 +61,20 @@ h2.name-page span{
     font-size: 20px;
     text-align: right;
 }
+.content-wrapper{
+    height: 480px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: 20px;
+
+}
+.content-wrapper::scrollbar-thumb{
+    color: #000;
+}
 /*Кнопка оформления заказа*/
 #buying{
     position: absolute;
-    bottom: 20px;
+    bottom: 0.5rem;
     left: 40%;
     width: 150px;
     outline: none;

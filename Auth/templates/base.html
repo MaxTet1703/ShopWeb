@@ -3,6 +3,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{title}}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/dist/css/bootstrap.min.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'font-awesome/css/font-awesome.min.css'%}">
@@ -20,9 +21,9 @@
         </div>
         {% if user.is_authenticated %}
             <div class="col-9 d-flex justify-content-end align-items-center">
-                 {% if not user.is_superuser and not user.is_cooker %}
+                {% if not user.is_superuser and not user.is_cooker %}
                 <a href="{% url 'basket' %}"><i class="fa fa-shopping-basket basket" aria-hidden="true"></i></a>
-                 {% endif %}
+                {% endif %}
                 <p class="name-user">{{user.name}}</p>
                 <a class="logout" href="{% url 'logout' %}">Выйти</a>
             </div>

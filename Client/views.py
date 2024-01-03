@@ -1,4 +1,5 @@
 import json
+from random import choice
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import F, Sum
@@ -30,7 +31,8 @@ class HomePage(LoginRequiredMixin, View):
         OrdersItem.objects.create(user_id=self.request.user,
                                   item=item_of_menu,
                                   count=count,
-                                  is_selected=True)
+                                  is_selected=True,
+                                  is_ordered = False)
         return JsonResponse({
             'status': 200,
             'message': "Всё прошло успешно"
@@ -44,9 +46,9 @@ class Basket(LoginRequiredMixin, View):
     def get_context_data(self):
         context = {
             'title': "Корзина заказа",
-            "items": OrdersItem.objects.filter(user_id=self.request.user).annotate(
+            "items": OrdersItem.objects.filter(user_id=self.request.user, is_ordered=False).annotate(
                 total=F('count') * F('item__price')),
-            "summ": OrdersItem.objects.filter(user_id=self.request.user, is_selected = True).aggregate(
+            "summ": OrdersItem.objects.filter(user_id=self.request.user, is_selected=True, is_ordered=False).aggregate(
                 summ=Sum(F("count") * F("item__price")))['summ']
         }
         return context
@@ -59,8 +61,8 @@ class Basket(LoginRequiredMixin, View):
 
     def delete_item(self, request):
         pk = self.request.POST.get('pk')
-        OrdersItem.objects.get().delete()
-        summ = OrdersItem.objects.filter(user_id=self.request.user, is_selected = True).aggregate(
+        OrdersItem.objects.get(pk=pk).delete()
+        summ = OrdersItem.objects.filter(user_id=self.request.user, is_selected=True, is_ordered=False).aggregate(
             summ=Sum(F("count") * F("item__price")))['summ']
         if summ is None:
             summ = 0
@@ -72,10 +74,10 @@ class Basket(LoginRequiredMixin, View):
     def change_checkbox(self, request):
         pk = self.request.POST.get("pk")
         boolean = json.loads(self.request.POST.get("request"))
-        item = OrdersItem.objects.get()
+        item = OrdersItem.objects.get(pk=pk)
         item.is_selected = boolean
         item.save()
-        summ = OrdersItem.objects.filter(user_id=self.request.user, is_selected = True).aggregate(
+        summ = OrdersItem.objects.filter(user_id=self.request.user, is_selected=True, is_ordered=False).aggregate(
             summ=Sum(F("count") * F("item__price")))['summ']
         if summ is None:
             summ = 0
@@ -86,12 +88,21 @@ class Basket(LoginRequiredMixin, View):
         }, status=200)
 
     def create_order(self, request):
-        OrdersItem.objects.filter(user_id=self.request.user, is_selected=True).delete()
-        summ = OrdersItem.objects.filter(user_id=self.request.user, is_selected=True).aggregate(
+
+        cooker = choice(MyUser.objects.filter(is_cooker=True))
+
+        new_order = Order.objects.create(cooker = cooker)
+
+        OrdersItem.objects.filter(user_id=self.request.user, is_selected=True, is_ordered = False).update(
+            is_ordered=True,
+            order_id=new_order,
+        )
+
+        summ = OrdersItem.objects.filter(user_id=self.request.user, is_selected=True, is_ordered=False).aggregate(
             summ=Sum(F("count") * F("item__price")))['summ']
         if summ is None:
             summ = 0
-        return  JsonResponse(data = {"summ": summ}, status=200)
+        return JsonResponse(data={"summ": summ}, status=200)
 
     choose_post = {
         "delete": delete_item,
@@ -101,4 +112,3 @@ class Basket(LoginRequiredMixin, View):
 
     def post(self, request):
         return self.choose_post[self.request.POST.get("message")](self, request)
-
