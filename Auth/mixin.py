@@ -5,6 +5,7 @@ class DataMixIn:
 
         if self.request.user.is_superuser:
             return "administrator/"
-        print("Хаха неправильно")
-        return "homepage/"
+        elif self.request.user.is_cooker:
+            return "employee/"
+        return 'homepage/'
 

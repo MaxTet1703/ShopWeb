@@ -87,12 +87,21 @@ p#success-order{
     display: inline-block;
     padding: 20px;
     background: rgb(189,236,182);
-    position: relative;
-
+    position: absolute;
+    top: 50px;
+    border-radius: 15px;
+    box-shadow: 5px 5px 15px black;
+    transition: all .9s;
+    opacity: 1;
+}
+p#success-order.close{
+    transition: all 0s;
+    opacity: 0;
+    top: -10px;
 }
 span.close{
     position: absolute;
-    top: 0px;
-    right: 5px;
+    top: 1px;
+    right: 10px;
     cursor: default;
 }

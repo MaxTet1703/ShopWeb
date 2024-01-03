@@ -20,7 +20,7 @@
         </div>
         {% if user.is_authenticated %}
             <div class="col-9 d-flex justify-content-end align-items-center">
-                 {% if not user.is_superuser and not user.is_cook %}
+                 {% if not user.is_superuser and not user.is_cooker %}
                 <a href="{% url 'basket' %}"><i class="fa fa-shopping-basket basket" aria-hidden="true"></i></a>
                  {% endif %}
                 <p class="name-user">{{user.name}}</p>

@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.views.generic import CreateView
 
@@ -27,8 +28,8 @@ class UserRegister(DataMixIn, CreateView):
     def form_valid(self, form):
         email = form.cleaned_data['email']
         name = form.cleaned_data["name"]
-        password = form.cleaned_data["password1"]
-        MyUser.objects.create_user(email=email, name=name,
+        password = form.cleaned_data["password2"]
+        MyUser.objects.create_user(email=email, name=name, is_active = True,
                               is_cooker=False, username=email, password = password)
         data = {
             'status': 200,
@@ -43,7 +44,7 @@ class UserRegister(DataMixIn, CreateView):
         return JsonResponse(data=data, status=200)
 
 
-class UserLogin(View, DataMixIn):
+class UserLogin(DataMixIn, View):
     template_name = 'login.html'
 
     def get(self, request):
@@ -57,16 +58,19 @@ class UserLogin(View, DataMixIn):
 
     def post(self, request):
         form = LoginForm(request.POST)
-
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data["password"]
             if email and password:
-                user = authenticate(username=email, password=password)
+                user = authenticate(request, username=email, password=password)
                 if user:
                     login(request, user)
-                    return redirect(self.get_redirect_url())
+                    url = self.get_redirect_url()
 
+                    return JsonResponse(data={
+                            'status': 200,
+                            'url': url,
+                            }, status=200)
         return JsonResponse(data={
             'status': 400,
             'error': "Неверная почта или пароль",

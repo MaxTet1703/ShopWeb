@@ -1,6 +1,7 @@
 from django.db import models
 from Auth.models import MyUser
 
+
 # Create your models here.
 
 class Menu(models.Model):
@@ -29,9 +30,21 @@ class Chapter(models.Model):
         verbose_name_plural = "Категории"
 
 
+class Order(models.Model):
+    is_done = models.BooleanField(verbose_name="Готово/Не готово", default=False)
+
+
 class OrdersItem(models.Model):
+    """
+
+    Класс, отображающий позиции в корзине пользовтеля
+
+    """
+
     user_id = models.ForeignKey(MyUser, on_delete=models.DO_NOTHING, verbose_name="Пользователь",
-                                   related_name="order")
+                                related_name="order")
     item = models.ForeignKey(Menu, on_delete=models.DO_NOTHING, verbose_name="Заказ")
     count = models.IntegerField(verbose_name="Количество блюд")
     is_selected = models.BooleanField(verbose_name="Выбор для покупки", default=False)
+    is_ordered = models.BooleanField(verbose_name="Заказано/не заказано", default=False)
+    order_id = models.ForeignKey("Order", on_delete=models.DO_NOTHING, verbose_name="Номер заказа", related_name="order_id", null=True)

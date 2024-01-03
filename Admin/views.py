@@ -12,7 +12,7 @@ from Auth.models import *
 
 class CreateEmploy(CreateView):
     template_name = 'administrator.html'
-    form_class =  RegisterForm
+    form_class = RegisterForm
 
     @property
     def get_context_data(self, **kwargs):
@@ -22,24 +22,23 @@ class CreateEmploy(CreateView):
             'employees': MyUser.objects.filter(is_cooker=True)
         }
 
-    def get(self, request):
+    def get(self, request, **kwargs):
         return render(request, self.template_name, context=self.get_context_data)
 
     def post(self, request, *args, **kwargs):
         if self.request.POST.get('pk') is None:
             return super().post(request, *args, **kwargs)
-        user = MyUser.objects.get(pk=self.request.POST.get('pk'))
+        user = MyUser.objects.get(pk=self.request.POST.get("pk"))
         user.delete()
         return JsonResponse(data={'status': 200}, status=200)
-
 
     def form_valid(self, form):
         email = form.cleaned_data['email']
         name = form.cleaned_data["name"]
         password = form.cleaned_data["password1"]
-        user = MyUser(email=email, name=name,
-                                   is_cooker=True, username=email, password=password)
-        user.save()
+        user = MyUser.objects.create_user(email=email, name=name,
+                      is_cooker=True, username=email, password=password)
+
         return JsonResponse(data={
             'status': 200,
             'success': 'Работник успешно добавлен',

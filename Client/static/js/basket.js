@@ -73,7 +73,7 @@ $(function($){
             },
             success: function(response){
                 $('input.select-item[checked="checked"]').parent().remove();
-                $("p#success-order").removeClass("d-none");
+                $("p#success-order").removeClass("close");
                   $("h2.name-page span.total-price").html("к оплате: " + response.summ + "&#8381;");
             },
             error: function(){
@@ -82,6 +82,6 @@ $(function($){
        });
    });
    $("p#success-order").click(function(){
-        $("p#success-order").addClass("d-none");
+        $("p#success-order").addClass("close");
    })
 });
