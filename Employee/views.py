@@ -19,9 +19,9 @@ class Employee(LoginRequiredMixin, View):
     def post(self, request):
         pk = self.request.POST.get("pk")
         print(pk)
-        order = Order.objects.get(pk=pk)
-        order.is_done = True
+        order = Order.objects.get(pk = pk)
+        order.delete()
 
-        return JsonResponse({'status': 200}, status = 400)
+        return JsonResponse({'status': 200}, status = 200)
 
 

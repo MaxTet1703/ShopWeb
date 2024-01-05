@@ -4,17 +4,17 @@ $(function($){
             $.ajax({
                 type: "POST",
                 url: $(location).attr("href"),
-                dataType: "json",
                 data: {
                     pk: $(button).parent().attr("name"),
                     csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
                 },
+                dataType: "json",
                 success: function(response){
                     console.log("Всё успешно удалилось");
                     $(button).parent().remove();
                 },
-                error: function(response){
-                    console.log("Ошибка");
+                error: function(err){
+                    console.log(err);
                 }
         });
         });
