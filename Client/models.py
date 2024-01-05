@@ -33,6 +33,7 @@ class Chapter(models.Model):
 class Order(models.Model):
     is_done = models.BooleanField(verbose_name="Готово/Не готово", default=False)
     cooker = models.ForeignKey(MyUser, on_delete=models.DO_NOTHING, related_name="cooker", null=True)
+    user = models.ForeignKey(MyUser, on_delete=models.DO_NOTHING, related_name="user", null=True)
 
 
 class OrdersItem(models.Model):

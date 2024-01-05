@@ -1,0 +1,51 @@
+h1.title{
+    text-align: center;
+    margin: 20px 0;
+}
+
+div.orders{
+    margin: 20px auto;
+    width: 850px;
+    height: 750px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    box-shadow: 5px 5px 25px black;
+    padding: 20px;
+}
+
+div.order{
+    height: auto;
+    width: 100%;
+    border: 1px auto black;
+    margin: 20px 0px;
+
+}
+p.user-name{
+    padding: 10px;
+    text-align: center;
+    flex: 1;
+}
+button.cook{
+    flex: 1;
+    margin: 0 10px;
+    outline: none;
+    padding: 10px;
+    border-radius: 15px;
+    height: 50px;
+    background: rgb(220, 20, 60);
+    border: 1px solid transparent;
+    color: white;
+    transition: all .4s;
+}
+button.cook:hover{
+    border: 1px solid rgb(220, 20, 60);
+    color: rgb(220, 20, 60);
+    background: none;
+}
+div.items{
+    padding: 10px;
+    flex: 3;
+}
+div.items p{
+    text-align: center;
+}

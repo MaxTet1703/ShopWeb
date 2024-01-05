@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'ShopWeb.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'd.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 

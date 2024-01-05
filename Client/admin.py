@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import *
 
+
 # Register your models here.
 
 class MenuAdmin(admin.ModelAdmin):
@@ -15,3 +16,4 @@ class CategoriesAdmin(admin.ModelAdmin):
 
 admin.site.register(Menu, MenuAdmin)
 admin.site.register(Chapter, CategoriesAdmin)
+admin.site.register(Order)

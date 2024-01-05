@@ -91,7 +91,7 @@ class Basket(LoginRequiredMixin, View):
 
         cooker = choice(MyUser.objects.filter(is_cooker=True))
 
-        new_order = Order.objects.create(cooker = cooker)
+        new_order = Order.objects.create(cooker = cooker, user = self.request.user)
 
         OrdersItem.objects.filter(user_id=self.request.user, is_selected=True, is_ordered = False).update(
             is_ordered=True,

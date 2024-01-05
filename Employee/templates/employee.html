@@ -1,1 +1,28 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block jsframework %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/employee.css'%}">
+{% endblock %}
+
+{% block content %}
+    <h1 class="title">Заказы</h1>
+     <div class="orders d-flex flex-column">
+         {% csrf_token %}
+         {% for order in orders %}
+            <div class="order d-flex" name="{{order.pk}}">
+                <p class="user-name">{{order.user.name}}</p>
+                <div class="items d-flex flex-column">
+                {% for item in order.order_id.all %}
+                    <p>{{item.item}}: x{{item.count}}</p>
+                {% endfor %}
+                </div>
+                <button class="cook">Готово</button>
+            </div>
+         {% endfor %}
+     </div>
+
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/employee.js' %}"></script>
+{% endblock %}

@@ -68,7 +68,7 @@ $(function($){
             console.log(name);
             $.ajax({
                 type: "POST",
-                url: $(location).attr("href"),
+                url: "employee/",
                 data: {
                     name: name,
                     count: count,
