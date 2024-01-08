@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+
+  pgdb:
+    image: postgres:9.5
+    restart: always
+    container_name: pgdb
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - pgdbdata:/var/lib/postgresql/data/
+
+
+  npm:
+    build:
+      context: .
+      target: npm
+
+  django:
+    build:
+      context: .
+      target: django
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app/
+    depends_on:
+      - pgdb
+
+
+
+volumes:
+  pgdbdata: null

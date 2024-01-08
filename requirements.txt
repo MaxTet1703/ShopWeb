@@ -1,5 +1,7 @@
 asgiref==3.7.2
 Django==3.2
 Pillow==10.1.0
+psycopg2==2.9.9
 pytz==2023.3.post1
+sberbank==0.38
 sqlparse==0.4.4

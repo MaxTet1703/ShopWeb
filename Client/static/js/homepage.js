@@ -58,7 +58,7 @@ $(function($){
         });
     });
     // Отправляем заказы в корзину
-    var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+
     const submitAdd = $("button.submit-add");
     Array.from(submitAdd).forEach(button =>{
         $(button).click(function(event){
@@ -68,7 +68,7 @@ $(function($){
             console.log(name);
             $.ajax({
                 type: "POST",
-                url: "employee/",
+                url: $(location).attr("href"),
                 data: {
                     name: name,
                     count: count,
